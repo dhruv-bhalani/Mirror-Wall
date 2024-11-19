@@ -1,8 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:government_app/model/webmodel.dart';
 import 'package:government_app/screens/home/views/home_provider.dart';
-import 'package:government_app/screens/webpage/web_provider.dart';
+
 import 'package:government_app/utils/extension.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,23 @@ class _WebPageState extends State<WebPage> {
   late Homeprovider homeproviderW;
   late Homeprovider homeproviderR;
   PullToRefreshController? pullToRefreshController;
+
   @override
+  void initState() {
+    pullToRefreshController = kIsWeb
+        ? null
+        : PullToRefreshController(
+            settings: PullToRefreshSettings(
+                color: Colors.blue.shade300, backgroundColor: Colors.white),
+            onRefresh: () {
+              if (defaultTargetPlatform == TargetPlatform.android) {
+                webViewController!.reload();
+              }
+            },
+          );
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     homeproviderW = context.watch<Homeprovider>();
     homeproviderR = context.read<Homeprovider>();
@@ -110,7 +127,7 @@ class _WebPageState extends State<WebPage> {
                   },
                 ),
                 PopupMenuItem(
-                  child: Text('Bing'),
+                  child: const Text('Bing'),
                   onTap: () {
                     if (webViewController != null) {
                       webViewController!.loadUrl(
@@ -129,7 +146,7 @@ class _WebPageState extends State<WebPage> {
           LinearProgressIndicator(
             value: homeproviderW.progress,
           ),
-          10.height,
+          5.height,
           TextField(
             decoration: const InputDecoration(
               hintText: "Search",
@@ -145,7 +162,7 @@ class _WebPageState extends State<WebPage> {
               }
             },
           ),
-          50.height,
+          5.height,
           Expanded(
             child: RefreshIndicator(
               onRefresh: () async {
@@ -156,6 +173,7 @@ class _WebPageState extends State<WebPage> {
               child: InAppWebView(
                 onProgressChanged: (controller, progress) {
                   homeproviderR.changeProgress(progress / 100);
+                  if (progress == 100) pullToRefreshController!.endRefreshing();
                 },
                 onWebViewCreated: (controller) {
                   webViewController = controller;
@@ -163,6 +181,7 @@ class _WebPageState extends State<WebPage> {
                 initialUrlRequest: URLRequest(
                   url: WebUri('${models.url}'),
                 ),
+                pullToRefreshController: pullToRefreshController,
               ),
             ),
           ),

@@ -8,6 +8,9 @@ class Homeprovider with ChangeNotifier {
   bool isConnect = false;
   Connectivity connectivity = Connectivity();
   double progress = 0;
+  List<ConnectivityResult> results = [];
+  bool isdarkmode = false;
+  int count = 0;
 
   List<WebModels> webList = [
     WebModels(
@@ -33,5 +36,15 @@ class Homeprovider with ChangeNotifier {
         notifyListeners();
       },
     ));
+  }
+
+  void changeTheme(bool val) {
+    isdarkmode = val;
+    notifyListeners();
+  }
+
+  void changeCount() {
+    count++;
+    notifyListeners();
   }
 }

@@ -30,6 +30,14 @@ class _HomepageState extends State<Homepage> {
             style: TextStyle(fontSize: 35),
           ),
         ),
+        actions: const [
+          // Switch(
+          //   value: homeproviderR.isdarkmode,
+          //   onChanged: (value) {
+          //     homeproviderW.changeTheme(value);
+          //   },
+          // ),
+        ],
       ),
       body: GridView.builder(
         itemCount: homeproviderR.webList.length,
