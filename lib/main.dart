@@ -15,17 +15,23 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
-          value: Homeprovider(),
+          value: Homeprovider()
+            ..checkTheme()
+            ..getSelectIndex(),
         ),
       ],
       child: Consumer<Homeprovider>(
         builder: (context, value, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
+            // theme: (value.isdarkmode) ? ThemeData.dark() : ThemeData.light(),
             theme: ThemeData.light(),
             darkTheme: ThemeData.dark(),
-            // themeMode: value.isdarkmode ? ThemeMode.dark : ThemeMode.light,
-            themeMode: ThemeMode.system,
+            themeMode: (value.isdarkmode)
+                ? ThemeMode.dark
+                : value.isdarkmode
+                    ? ThemeMode.dark
+                    : ThemeMode.light,
             routes: AppRoutes.allRoutes,
           );
         },

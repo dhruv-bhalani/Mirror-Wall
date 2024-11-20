@@ -15,7 +15,6 @@ class _SplashscreenState extends State<Splashscreen> {
     });
     return Scaffold(
       body: Container(
-        color: Colors.white,
         child: Center(
           child: Container(
             height: 300,

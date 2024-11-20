@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:government_app/helper/shr_helpre.dart';
 import 'package:government_app/model/webmodel.dart';
 import 'package:government_app/screens/home/views/home_provider.dart';
 
@@ -81,8 +82,13 @@ class _WebPageState extends State<WebPage> {
                   onTap: () {
                     if (webViewController != null) {
                       webViewController!.loadUrl(
-                          urlRequest: URLRequest(
-                              url: WebUri("https://www.google.com")));
+                        urlRequest: URLRequest(
+                          url: WebUri("https://www.google.com"),
+                        ),
+                      );
+                      String url = "https://www.google.com";
+                      homeproviderR.selectIndex(url);
+                      homeproviderR.url = url;
                     }
                   },
                 ),
@@ -91,8 +97,13 @@ class _WebPageState extends State<WebPage> {
                   onTap: () {
                     if (webViewController != null) {
                       webViewController!.loadUrl(
-                          urlRequest:
-                              URLRequest(url: WebUri("https://www.yahoo.com")));
+                        urlRequest: URLRequest(
+                          url: WebUri("https://www.yahoo.com"),
+                        ),
+                      );
+                      String url = "https://www.yahoo.com";
+                      homeproviderR.selectIndex(url);
+                      homeproviderR.url = url;
                     }
                   },
                 ),
@@ -101,8 +112,13 @@ class _WebPageState extends State<WebPage> {
                   onTap: () {
                     if (webViewController != null) {
                       webViewController!.loadUrl(
-                          urlRequest:
-                              URLRequest(url: WebUri("https://www.bing.com")));
+                        urlRequest: URLRequest(
+                          url: WebUri("https://www.bing.com"),
+                        ),
+                      );
+                      String url = "https://www.bing.com";
+                      homeproviderR.selectIndex(url);
+                      homeproviderR.url = url;
                     }
                   },
                 ),
@@ -111,8 +127,13 @@ class _WebPageState extends State<WebPage> {
                   onTap: () {
                     if (webViewController != null) {
                       webViewController!.loadUrl(
-                          urlRequest:
-                              URLRequest(url: WebUri("https://brave.com")));
+                        urlRequest: URLRequest(
+                          url: WebUri("https://brave.com"),
+                        ),
+                      );
+                      String url = "https://brave.com";
+                      homeproviderR.selectIndex(url);
+                      homeproviderR.url = url;
                     }
                   },
                 ),
@@ -121,8 +142,13 @@ class _WebPageState extends State<WebPage> {
                   onTap: () {
                     if (webViewController != null) {
                       webViewController!.loadUrl(
-                          urlRequest: URLRequest(
-                              url: WebUri("https://duckduckgo.com")));
+                        urlRequest: URLRequest(
+                          url: WebUri("https://duckduckgo.com"),
+                        ),
+                      );
+                      String url = "https://duckduckgo.com";
+                      homeproviderR.selectIndex(url);
+                      homeproviderR.url = url;
                     }
                   },
                 ),
@@ -131,8 +157,13 @@ class _WebPageState extends State<WebPage> {
                   onTap: () {
                     if (webViewController != null) {
                       webViewController!.loadUrl(
-                          urlRequest:
-                              URLRequest(url: WebUri("https://www.bing.com")));
+                        urlRequest: URLRequest(
+                          url: WebUri("https://www.bing.com"),
+                        ),
+                      );
+                      String url = "https://www.bing.com";
+                      homeproviderR.selectIndex(url);
+                      homeproviderR.url = url;
                     }
                   },
                 ),
@@ -179,7 +210,10 @@ class _WebPageState extends State<WebPage> {
                   webViewController = controller;
                 },
                 initialUrlRequest: URLRequest(
-                  url: WebUri('${models.url}'),
+                  // url: WebUri('${models.url}'),
+                  // url: WebUri('${homeproviderW.url}'),
+                  url: WebUri(
+                      "${webViewController == null ? homeproviderW.url : webViewController?.getUrl()}"),
                 ),
                 pullToRefreshController: pullToRefreshController,
               ),
